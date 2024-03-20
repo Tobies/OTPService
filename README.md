@@ -30,7 +30,7 @@ $ cp .env.example .env
 # Build project
 $ npm build
 
-# Run project
+# Run client
 $ npm start
 
 Now you should be able to vist the website at https://localhost:3000
@@ -50,11 +50,8 @@ $ npm install
 $ cp .env.example .env
 ! Edit the .env file. Make sure all the values are correct and that your weather api key is valid.
 
-# Build project
-$ npm build
-
-# Run project
-$ npm start
+# Run the server
+$ node index.js
 
 ```
 
