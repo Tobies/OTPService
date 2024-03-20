@@ -28,7 +28,7 @@ $ cp .env.example .env
 ! Edit the .env file. The value you will write there will be used later by the server.
 
 # Build project
-$ npm build
+$ npm run build
 
 # Run client
 $ npm start
