@@ -48,15 +48,21 @@ function playAnimation() {
 }
 
 
-let selectedDigit = 1
 
 function click(e) {
     
+    var selectedDigit = 0
 
     var elements = []
-    for (var i = 1; i <= 6; i++) elements.push(document.getElementById("otpInput-" + i))
+    for (var i = 1; i <= 6; i++) elements.push(document.getElementById("otpInput-" + i));
 
-    var element = elements[selectedDigit-1]
+    for (var i = 0; i < elements.length; i++) 
+        if (elements[i].value.length == 0) break;
+        else selectedDigit++;
+    
+
+    if (selectedDigit >= 5) selectedDigit = 5;
+    var element = elements[selectedDigit]
     
     if (!element) {
         selectedDigit = 1
@@ -69,19 +75,19 @@ function click(e) {
 
     if (!actionid) return
 
-    for (var i = selectedDigit-1; i < elements.length; i++) elements[i].value = ""
+    for (var i = selectedDigit; i < elements.length; i++) elements[i].value = ""
 
     switch(actionid) {
 
         case "delete":
             element.value = ""
-            if (selectedDigit > 1) selectedDigit--
-            element = elements[selectedDigit-1]
+            if (selectedDigit > 0) selectedDigit--
+            element = elements[selectedDigit]
             if (element) element.focus()
             break;
         default:
             element.value = actionid
-            if (selectedDigit < 6) selectedDigit++
+            if (selectedDigit < 4) selectedDigit++
             break
         
     }

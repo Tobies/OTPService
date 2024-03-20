@@ -4,6 +4,10 @@ export function requestOTP() {
     var flavorText = document.getElementById("requestFlavorText")
     
     flavorText.innerHTML = "Sending mail..."
+
+    var verificationFlavorText = document.getElementById("verificationFlavorText")
+    
+    verificationFlavorText.innerHTML = "We have sent you a one time password by email."
   
     fetch(process.env.NEXT_PUBLIC_OTP_SERVICE_URL + "/request-otp/" + email).then(resp => {
         resp.text().then(resp => {

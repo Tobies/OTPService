@@ -6,6 +6,9 @@ function backToRequest() {
     var verificationContainer = document.getElementById("verficationContainer")
     verificationContainer.classList.add("hidden")
     verificationContainer.classList.remove("flex")
+
+    var requestFlavorText = document.getElementById("requestFlavorText")
+    requestFlavorText.innerHTML = "Login to our site with a one time password!"
 }
 export default function EmailDisplay(props) {
     return <div  className="font-normal text-base text-email p-5 flex"> 
