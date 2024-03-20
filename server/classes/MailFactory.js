@@ -27,7 +27,7 @@ export class MailFactory {
 
     validatedOTP(otp) {
         if (otp == null) return false
-        if (email.length <= 0) return false
+        if (otp.length <= 0) return false
         return /^\d{6}$/.test(otp)
     }
 
