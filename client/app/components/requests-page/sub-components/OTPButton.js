@@ -7,9 +7,13 @@ export function requestOTP() {
   
     fetch(process.env.NEXT_PUBLIC_OTP_SERVICE_URL + "/request-otp/" + email).then(resp => {
         resp.text().then(resp => {
+            
+            
             var flavorText = document.getElementById("requestFlavorText")
             flavorText.innerHTML = resp
 
+            if (resp.includes("\n")) return flavorText.innerHTML = "Please provide a valid email."
+            
             if (resp === "Please provide a valid email.") return;
 
             var requestContainer = document.getElementById("requestContainer")
