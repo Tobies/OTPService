@@ -27,11 +27,8 @@ $ npm install
 $ cp .env.example .env
 ! Edit the .env file. The value you will write there will be used later by the server.
 
-# Build project
-$ npm build
-
-# Run client
-$ npm start
+# Run client in dev mode (It's simply faster)
+$ npm run dev
 
 Now you should be able to vist the website at https://localhost:3000
 
