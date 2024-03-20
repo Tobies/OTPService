@@ -15,16 +15,4 @@ Back:
 [+] Handles OTP verification 
 
 
-Tests:
-[-] A simple script that runs the backend and tries to authenticate using post requests
-[-] MAKE SURE TO VERIFY ENV VARIABLES
 
-Mail:
-[-] Design
-
-Cleanup:
-[-] Comment on code base
-
-commands:
- run client - npm run dev
- run server - npx nodemon index.js 
