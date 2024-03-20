@@ -41,9 +41,9 @@ export class MailFactory {
             this.transporter.sendMail({
                 from: process.env.SMTP_EMAIL,
                 to: email,
-                subject: "Here is you one time password for OTP Exercise",
+                subject: "Here is your one time password for OTP Exercise",
                 text: "Please use the following one time password to login: " + otp,
-                html: "<b>Please use the following code to login: " + otp + "</b>",
+                html: "<b>Please use the following one time password to login: " + otp + "</b>",
             })}
 
         )
