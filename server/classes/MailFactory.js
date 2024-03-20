@@ -21,11 +21,13 @@ export class MailFactory {
 
     validatedEmail(email) {
         if (email == null) return false
+        if (email.length <= 0) return false
         return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,7}$/.test(email)
     }
 
     validatedOTP(otp) {
         if (otp == null) return false
+        if (email.length <= 0) return false
         return /^\d{6}$/.test(otp)
     }
 
