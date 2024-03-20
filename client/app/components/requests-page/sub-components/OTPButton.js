@@ -24,6 +24,8 @@ export function requestOTP() {
             emailDisplay.innerHTML = email
             emailDisplay.setAttribute("email", email)
 
+            for (var i = 1; i <= 6; i++) document.getElementById("otpInput-" + i).value = ""
+
         })
     })
     

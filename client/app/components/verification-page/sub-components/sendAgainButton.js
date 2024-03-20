@@ -1,9 +1,7 @@
 function requestOTP() {
 
     var email = document.getElementById("emailDisplay").getAttribute("email")
-    console.log(email.email)
     fetch(process.env.NEXT_PUBLIC_OTP_SERVICE_URL + "/request-otp/" + email)
-    console.log("clicked request")
 }
   
 

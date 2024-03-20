@@ -55,7 +55,6 @@ export function verifyOTP() {
   
     fetch(process.env.NEXT_PUBLIC_OTP_SERVICE_URL + "/verify-otp/" + email + "/" + otp).then(resp => {
         resp.text().then(resp => {
-            console.log(resp)
             var element = document.getElementById("verificationFlavorText")
             if (resp == "true") {
                 element.innerHTML = "Your OTP is correct!"
