@@ -1,4 +1,52 @@
 import KeyPadButton from "./keyPadButton";
+import lottie from "lottie-web"
+
+
+function playAnimation() {
+
+    var checkmarkElement = document.getElementById("checkmark")
+    checkmarkElement.classList.remove("hidden")
+
+    var checkmarkAnimation = lottie.loadAnimation({
+        container:checkmarkElement,
+        renderer:"svg",
+        loop:false,
+        autoplay:true,
+        path: "checkmark.json",
+        controls: true
+    })
+    
+    var fireworkElement = document.getElementById("fireworks")
+    fireworkElement.classList.remove("hidden")
+    lottie.loadAnimation({
+        container:fireworkElement,
+        renderer:"svg",
+        loop:true,
+        autoplay:true,
+        path: "fireworks.json"
+    })
+    
+    
+    checkmarkAnimation.addEventListener("complete", (anim) => {
+
+        setTimeout(() => {
+            fireworkElement.innerHTML = ""
+            fireworkElement.classList.add("hidden")
+            checkmarkElement.innerHTML = ""
+            checkmarkElement.classList.add("hidden")
+        }, 245)
+        checkmarkElement.animate([
+            {transform: 'scale(100%)'},
+            {transform: 'scale(0%)'}
+        ], {duration: 250 })
+        fireworkElement.animate([
+            {transform: 'scale(100%)'},
+            {transform: 'scale(0%)'}
+        ], {duration: 250 })
+        
+    })
+}
+
 
 let selectedDigit = 1
 
@@ -58,32 +106,37 @@ export function verifyOTP() {
             var element = document.getElementById("verificationFlavorText")
             if (resp == "true") {
                 element.innerHTML = "Your OTP is correct!"
-            } else if (resp == "false") {
-                element.innerHTML = "Your OTP is either incorrect or expired."
-            } else {
-                element.innerHTML = resp
-            }
+                
+                playAnimation()
+
+            } 
+            else if (resp == "false") element.innerHTML = "Your OTP is either incorrect or expired."
+            else element.innerHTML = resp
+            
         })
     })
     
 }
 
 export default function KeyPad() {
-    return <div className="grid grid-rows4 grid-cols-3 border-2 border-input rounded-xl">
-        <KeyPadButton click={click} actionid={1} icon={1}/>
-        <KeyPadButton click={click} actionid={2} icon={2}/>
-        <KeyPadButton click={click} actionid={3} icon={3}/>
-        <KeyPadButton click={click} actionid={4} icon={4}/>
-        <KeyPadButton click={click} actionid={5} icon={5}/>
-        <KeyPadButton click={click} actionid={6} icon={6}/>
-        <KeyPadButton click={click} actionid={7} icon={7}/>
-        <KeyPadButton click={click} actionid={8} icon={8}/>
-        <KeyPadButton click={click} actionid={9} icon={9}/>
-        <KeyPadButton/>
-        <KeyPadButton click={click} actionid={0} icon={0}/>
-        <KeyPadButton click={click} actionid={"delete"} icon={
-            <svg actionid={"delete"} width="32px" height="32px" viewBox="0 0 24 24" fill="none"><g actionid={"delete"} strokeWidth="0"></g><g actionid={"delete"} strokeLinecap="round" strokeLinejoin="round"></g><g actionid={"delete"}> <path actionid={"delete"} d="M11.142 20C8.91458 20 7.80085 20 6.87114 19.4986C5.94144 18.9971 5.35117 18.0781 4.17061 16.24L3.48981 15.18C2.4966 13.6336 2 12.8604 2 12C2 11.1396 2.4966 10.3664 3.48981 8.82001L4.17061 7.76001C5.35117 5.92191 5.94144 5.00286 6.87114 4.50143C7.80085 4 8.91458 4 11.142 4L13.779 4C17.6544 4 19.5921 4 20.7961 5.17157C22 6.34315 22 8.22876 22 12C22 15.7712 22 17.6569 20.7961 18.8284C19.5921 20 17.6544 20 13.779 20H11.142Z" stroke="#0DAC81" strokeWidth="2"></path> <path actionid={"delete"} d="M15.5 9.50002L10.5 14.5M10.5 9.5L15.5 14.5" stroke="#0DAC81" strokeWidth="2" strokeLinecap="round"></path> </g></svg>
-        }/>
+    return <div>
+        <div className="grid grid-rows4 grid-cols-3 border-2 border-input rounded-xl">
+            <KeyPadButton click={click} actionid={1} icon={1}/>
+            <KeyPadButton click={click} actionid={2} icon={2}/>
+            <KeyPadButton click={click} actionid={3} icon={3}/>
+            <KeyPadButton click={click} actionid={4} icon={4}/>
+            <KeyPadButton click={click} actionid={5} icon={5}/>
+            <KeyPadButton click={click} actionid={6} icon={6}/>
+            <KeyPadButton click={click} actionid={7} icon={7}/>
+            <KeyPadButton click={click} actionid={8} icon={8}/>
+            <KeyPadButton click={click} actionid={9} icon={9}/>
+            <KeyPadButton/>
+            <KeyPadButton click={click} actionid={0} icon={0}/>
+            <KeyPadButton click={click} actionid={"delete"} icon={
+                <svg actionid={"delete"} width="32px" height="32px" viewBox="0 0 24 24" fill="none"><g actionid={"delete"} strokeWidth="0"></g><g actionid={"delete"} strokeLinecap="round" strokeLinejoin="round"></g><g actionid={"delete"}> <path actionid={"delete"} d="M11.142 20C8.91458 20 7.80085 20 6.87114 19.4986C5.94144 18.9971 5.35117 18.0781 4.17061 16.24L3.48981 15.18C2.4966 13.6336 2 12.8604 2 12C2 11.1396 2.4966 10.3664 3.48981 8.82001L4.17061 7.76001C5.35117 5.92191 5.94144 5.00286 6.87114 4.50143C7.80085 4 8.91458 4 11.142 4L13.779 4C17.6544 4 19.5921 4 20.7961 5.17157C22 6.34315 22 8.22876 22 12C22 15.7712 22 17.6569 20.7961 18.8284C19.5921 20 17.6544 20 13.779 20H11.142Z" stroke="#0DAC81" strokeWidth="2"></path> <path actionid={"delete"} d="M15.5 9.50002L10.5 14.5M10.5 9.5L15.5 14.5" stroke="#0DAC81" strokeWidth="2" strokeLinecap="round"></path> </g></svg>
+            }/>
+        </div>
+    
     </div>
 }
 
