@@ -10,9 +10,9 @@ dotenv.config()
 export default function Home() {
 
   return (
-    <main>
+    <>
       <RequestContainer/>
       <VerificationContainer/>
-    </main>
+    </>
   );
 }
