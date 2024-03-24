@@ -3,15 +3,20 @@ import cors from "cors"
 import { OTPFactory } from "./OTPFactory.js"
 import { MailFactory } from "./MailFactory.js"
 import { SQLDriver } from "./SQLDriver.js";
+import { ExpiryManager } from "./ExpiryManager.js";
 
 export class OTPService {
 
 
     constructor() {
 
+        
         this.otpFactory = new OTPFactory()
         this.sqlDriver = new SQLDriver()
+        this.expiryManager = new ExpiryManager(this.sqlDriver)
         this.mailFactory = new MailFactory(this.otpFactory, this.sqlDriver)
+        
+        this.expiryManager.restoreQueue()
 
         this.app = express()
         this.port = process.env.API_PORT
@@ -27,16 +32,21 @@ export class OTPService {
         })
 
 
+
     }
 
     setupRequestOTPRoute() {
 
         var mailFactory = this.mailFactory
+        var expiryManager = this.expiryManager
 
         this.app.get("/request-otp/:email", (req, res) => {
-            if (!mailFactory.validatedEmail(req.params.email)) return res.send("Please provide a valid email.")
 
-            mailFactory.sendOTPMail(req.params.email)
+            var email = req.params.email
+            if (!mailFactory.validatedEmail(email)) return res.send("Please provide a valid email.")
+
+            mailFactory.sendOTPMail(email)
+            expiryManager.setupExpiry(email)
 
             res.send("A one time code was sent to your email.")
         })
@@ -47,6 +57,7 @@ export class OTPService {
 
         var mailFactory = this.mailFactory
         var sqlDriver = this.sqlDriver
+        var expiryManager = this.expiryManager;
 
         this.app.get("/verify-otp/:email/:otp", (req, res) => {
 
@@ -60,6 +71,7 @@ export class OTPService {
 
                 console.log("Verification for", email, "returned",result)
                 res.send(result)
+                expiryManager.forceExpiry(email)
             })
             
         })
@@ -67,4 +79,5 @@ export class OTPService {
 
     }
 
+    
 }

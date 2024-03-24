@@ -16,7 +16,6 @@ export class MailFactory {
               pass: process.env.SMTP_PASSWORD,
             },
         })
-
     }
 
     validatedEmail(email) {

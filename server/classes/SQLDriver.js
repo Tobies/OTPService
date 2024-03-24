@@ -110,6 +110,28 @@ export class SQLDriver {
 
     }
 
+    async getStoredData() {
+        var promise = await new Promise((resolve) => {
+            this.connection.query("SELECT email, generated_at FROM one_time_passwords ORDER BY generated_at;", (error, rows) => {
+                
+                if (error) return this.handleError(error, "Database error while getting stored data: ")
+                
+                var data = {}
+                var rowData
+                for (var row in rows) {
+                    
+                    rowData = rows[row]
+                    data[rowData.email] = rowData.generated_at
+    
+                }
+    
+                resolve(data)
+            })
+        })
+
+        return promise
+    }
+
 
 
 }
